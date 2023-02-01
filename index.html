@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>OverCSS</title>
+<link rel="icon" href="./assets/favicon.png">
+<link rel="stylesheet" href="./over_css.css" title="Main CSS">
+<script src="https://roboyeti.github.io/overgrowl/over_growl.js"></script>
+<script src="css_test.js"></script>
+</head>
+<body class="app" id="app">
+<div id="controls" class="controls">
+	<button onClick="ocss.reset_css()">Reset CSS</button><br>
+	<button onClick="ocss.undo_last()" class="small">Undo</button>|
+	<button onClick="ocss.redo_last()" class="small">Redo</button><br>
+	<button onClick="style1()">Style #1</button><br>
+	<button onClick="style2()">Style #2</button><br>
+	<button onClick="ocss.clear_rules('.logo')">Clear #1</button><br>
+	<button onClick="style3()">Style #3</button><br>	
+</div>
+<div id="logo" class="logo">
+  <p class="rsyellow">OverCSS v1 by</p>
+  <img src="assets/RogueSignal_FullLogo.svg" style="width:350px;"/>
+  <p></p>
+  <ul id="details" class="details">
+    <li> OverCSS blah blah blah
+    <li> Access current style sheets and rules
+    <li> Easily append style rules
+    <li> Undo last change or clear some or all rules added
+    <li> Original style sheet is preserved
+  </ul>
+</div>
+<script>
+  var ocss;
+  var ogrowler
+  document.addEventListener("DOMContentLoaded", function(){	
+    ocss = new OverCSS();
+    ogrowler = new OverGrowl({});
+  });
+
+  function style1() {
+    ocss.apply_style('.logo', 'box-shadow', '0px 0px 10px 10px rgba(86,124,126,1)');
+    ocss.apply_style('.logo', 'font-family', "'Brush Script MT', cursive");
+    ocss.apply_style('.logo', 'background-color', '#264646');
+    ogrowler.info("You have added three property styles individually.  Each of these is one undo, but all are on the '.logo class' and can also all be removed by this rule.");
+  }
+
+  function style2() {
+      ocss.apply_css('.details',`
+border-color:rgba(86,124,126,1);
+border-width:4px;
+border-style:solid;
+background-color: rgba(16,34,36,1);
+color: rgba(96,134,136,1);
+padding:20px;
+margin:5px;
+font-size: 18px;
+`   )
+  }
+
+  function style3() {
+    ocss.apply_css('#logo',`
+background: linear-gradient(rgba(255,0,0,1) 0%, rgba(255,154,0,1) 10%, rgba(208,222,33,1) 20%, rgba(79,220,74,1) 30%, rgba(63,218,216,1) 40%, rgba(47,201,226,1) 50%, rgba(28,127,238,1) 60%, rgba(95,21,242,1) 70%, rgba(186,12,248,1) 80%, rgba(251,7,217,1) 90%, rgba(255,0,0,1) 100%) 0 0/100% 200%;
+animation: logobackanim 3s linear infinite;
+`   )
+  
+    ocss.apply_css('@keyframes logobackanim',`
+to {background-position:0 -200%};
+`   )
+
+    ocss.apply_css('#app',`
+  background: #000000 url("assets/roguesignal_bg.png") repeat;
+  background-size: 256px;
+  background-position: 0 0;
+  animation: appanim 3s linear infinite;
+`   )
+
+    ocss.apply_css('@keyframes appanim',`
+to { background-position:0 200%};
+`   )
+
+  }
+
+</script>
+</body>
+</html>
