@@ -3,6 +3,7 @@
   --sbback: #00000050;
   --mydarkblue: rgba(21, 38, 44, 0.8);
   --myblue: rgba(33, 61, 69, 0.8);
+  --mylightblue: rgba(53, 81, 89, 0.8);
   --myorange: rgba( 210, 61, 41, 0.8);
   --myyellow: rgba(255, 159, 71, 0.8);
 }
@@ -25,19 +26,6 @@ body{
   background: #000000 url("assets/roguesignal_bg.png") repeat;
   background-size: 256px;
   background-position: 0px 0px;
-}
-
-.controls {
-  position:absolute;
-  left:0px;top:0px;
-  opacity:0.8;
-  height:90%;
-  min-width:180px;
-  border-style:solid;
-  border-color:var(--myorange);
-  border-width:0px;
-  overflow-y:auto;
-  z-index:10001;
 }
 button {
   background-color: #000000;
@@ -62,6 +50,19 @@ button.small {
 
 .toggle {
   min-width: 50px;
+}
+
+.controls {
+  position:absolute;
+  left:0px;top:0px;
+  opacity:0.8;
+  height:90%;
+  min-width:180px;
+  border-style:solid;
+  border-color:var(--myorange);
+  border-width:0px;
+  overflow-y:auto;
+  z-index:10001;
 }
 .logo {
   position:absolute;

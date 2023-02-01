@@ -1,0 +1,24 @@
+button {
+  background-color: var(--myyellow);
+  color: #000000;
+  border-radius: 10px;
+  border-color: var(--myorange);
+  padding: 4px;
+  font-size: 22px;
+  min-width: 150px;
+  touch-action: manipulation;
+  margin:5px;
+  margin-right:10px;
+  margin-left:0px;
+  cursor: pointer;
+}
+button:hover {
+  box-shadow: 5px 5px 5px 0px var(--myorange);;
+}
+button.small {
+  min-width: 50px;
+}
+
+.toggle {
+  min-width: 50px;
+}

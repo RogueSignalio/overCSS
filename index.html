@@ -6,9 +6,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>OverCSS</title>
 <link rel="icon" href="./assets/favicon.png">
-<link rel="stylesheet" href="./over_css.css" title="Main CSS">
+<link rel="stylesheet" href="./over_css.css" title="MainCSS" type="text/css">
+<link rel="stylesheet" href="./over_css2.css" title="MainCSS2" type="text/css">
 <script src="https://roboyeti.github.io/overgrowl/over_growl.js"></script>
-<script src="css_test.js"></script>
+<script src="over_css.js"></script>
 </head>
 <body class="app" id="app">
 <div id="controls" class="controls">
@@ -18,25 +19,31 @@
 	<button onClick="style1()">Style #1</button><br>
 	<button onClick="style2()">Style #2</button><br>
 	<button onClick="ocss.clear_rules('.logo')">Clear #1</button><br>
-	<button onClick="style3()">Style #3</button><br>	
+	<button onClick="style3()">Style #3</button><br>
+	<button onClick="sheet2()">Enable CSS2</button><br>
+	<button onClick="style4()">Style #4</button><br>
+	<button onClick="ocss2.reset_css()">Reset CSS2</button><br>
+	<button onClick="ocss2.disable()">Disable CSS2</button><br>
 </div>
 <div id="logo" class="logo">
   <p class="rsyellow">OverCSS v1 by</p>
   <img src="assets/RogueSignal_FullLogo.svg" style="width:350px;"/>
   <p></p>
   <ul id="details" class="details">
-    <li> OverCSS blah blah blah
     <li> Access current style sheets and rules
     <li> Easily append style rules
-    <li> Undo last change or clear some or all rules added
+    <li> Undo/Redo new and appended styles
+    <li> Clear all or by matching rules
     <li> Original style sheet is preserved
+    <li> Style sheet selector by index or title.
   </ul>
 </div>
 <script>
   var ocss;
   var ogrowler
   document.addEventListener("DOMContentLoaded", function(){	
-    ocss = new OverCSS();
+    ocss = new OverCSS({ sheet: 'MainCSS' });
+    ocss2 = new OverCSS({ sheet: 'MainCSS2' });
     ogrowler = new OverGrowl({});
   });
 
@@ -58,6 +65,7 @@ padding:20px;
 margin:5px;
 font-size: 18px;
 `   )
+    ogrowler.info("You have added a rule as one block of css style, so is one undo.");
   }
 
   function style3() {
@@ -80,7 +88,26 @@ to {background-position:0 -200%};
     ocss.apply_css('@keyframes appanim',`
 to { background-position:0 200%};
 `   )
+    ogrowler.info("You have added four rules, two appends to current rules and two new @keyframe rules.  This would require four undos.");
+  }
 
+  function sheet2() {
+    ocss2.enable();
+    ogrowler.info("You have enabled the second CSS file & instance with it's own undo/clear storage.");
+  }
+
+  function style4() {
+      ocss2.apply_css('button',`
+border-color:rgba(86,124,126,1);
+border-width:1px;
+border-style:solid;
+background-color: rgba(16,34,36,1);
+color: rgba(96,134,136,1);
+font-size: 18px;
+box-shadow: 0px 0px 10px 10px rgba(86,124,126,1);
+font-family: 'Brush Script MT', cursive;
+`   )
+    ogrowler.info("This instance only works with the 2nd CSS sheet.  Try the undo above.  It will not work on this instance.");
   }
 
 </script>
