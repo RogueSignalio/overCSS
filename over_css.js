@@ -9,7 +9,16 @@ class OverCSS  {
       this.sheet = document.styleSheets[0]
     } else if (Number.isInteger(this.config.sheet)) {
       this.sheet = document.styleSheets[this.config.sheet]
-    } else {
+    } else if (this.config.sheet == '_BLANK') {
+      var s = document.createElement('style');
+      s.type = 'text/css';
+      //s.id = 'overcss_blank';
+      //s.name = s.id;
+      s.innerText = '/*... OverCSS injected css ..*/';
+      document.head.appendChild(s);
+      this.sheet = s.sheet;
+    }
+    else {
       this.sheet = this.get_style_sheet(this.config.sheet)
     }
 
@@ -99,6 +108,9 @@ class OverCSS  {
     this.my_rules[last] ||= [];
     if (this.my_rules[last].length == 0) return;
     let idx = this.my_rules[last].pop();
+    if (this.orig_length < this.rule_list.length) {
+      if (idx > (this.rule_list.length - 1)) idx = this.rule_list.length - 1
+    }
     this.redo.push(this.rule_list[idx])
     this.sheet.deleteRule(idx);
   }
@@ -122,14 +134,23 @@ class OverCSS  {
   undo_rule(rule) {
     this.my_rules[rule] ||= [];
     let idx = this.my_rules[rule].pop();
+    var lindex = this.last.indexOf(rule);
+    if (lindex !== -1) {
+      this.last.splice(lindex, 1);
+    }
     this.sheet.deleteRule(idx);
   }
 
   clear_rules(rule) {
+    if (this.my_rules[rule] == undefined) {
+      return;
+    }
     for (let i=this.my_rules[rule].length - 1; i >= 0 ; i--) {
-      console.log("Delete " + this.my_rules[rule][i] + " " + rule + "," + i);
       this.sheet.deleteRule(this.my_rules[rule][i]);
     }
+    this.last = this.last.filter(function(item) {
+      return item !== rule
+    })
     this.my_rules[rule] = [];
   }  
 

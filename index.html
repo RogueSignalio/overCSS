@@ -24,6 +24,7 @@
 	<button onClick="style4()">Style #4</button><br>
 	<button onClick="ocss2.reset_css()">Reset CSS2</button><br>
 	<button onClick="ocss2.disable()">Disable CSS2</button><br>
+	<button onClick="new_sheet_test()">New Sheet Test</button><br>
 </div>
 <div id="logo" class="logo">
   <p class="rsyellow">OverCSS by <a href="http://www.roguesignal.io" target="_BLANK_">RogueSignal.IO</a><p>
@@ -47,6 +48,22 @@
     ocss2 = new OverCSS({ sheet: 'MainCSS2' });
     ogrowler = new OverGrowl({});
   });
+
+  function new_sheet_test() {
+    newcss = new OverCSS({ sheet: '_BLANK' });
+    newcss.apply_css('#app',`
+  background: #000000 url("assets/roguesignal_bg.png") repeat;
+  background-size: 512px;
+  background-position: 0 0;
+  animation: appanim 5s linear infinite;
+`   )
+
+    newcss.apply_css('@keyframes appanim',`
+to { background-position:260% 0};
+`   )
+    ogrowler.info("Created new style sheet and appended moving background css.  Wait a few seconds for reset.");
+    setTimeout(function() { newcss.reset_css(); }, 3000);
+  }
 
   function style1() {
     ocss.apply_style('.logo', 'box-shadow', '0px 0px 10px 10px rgba(86,124,126,1)');
