@@ -77,6 +77,17 @@ class OverCSS  {
       inc++;
     }
   }
+
+  rules_style_sheet(rules=this.rule_list) {
+    var inc = 0;
+    var style = ''
+    for (const rule of rules) {
+      style = style + "\n" + rule.cssText
+      inc++;
+    }
+    console.log(style)
+    return style
+  }
   
   apply_style(rule,option,value,tag=null) {
     var intext = rule + "{" + option +":" + value + "}";
