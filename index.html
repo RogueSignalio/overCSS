@@ -46,7 +46,7 @@
   document.addEventListener("DOMContentLoaded", function(){	
     ocss = new OverCSS({ sheet: 'MainCSS' });
     ocss2 = new OverCSS({ sheet: 'MainCSS2' });
-    ogrowler = new OverGrowl({});
+    ogrowler = new OverGrowl({ type_config: { 'info': { duration: 10000 }}});
   });
 
   function new_sheet_test() {
